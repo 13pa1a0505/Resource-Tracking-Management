@@ -1,0 +1,252 @@
+<app-header></app-header>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+<div class="col-md-20">
+  <table class="css-serial" id="customers">
+    <thead>
+      <tr>
+        <th>Sno</th>
+        <th>Group Id</th>
+        <th>Group Name</th>
+        <th>Lead Id</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Technology</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let group of groups">
+        <td></td>
+        <td>
+          <input type ="text"  [(ngModel)]="group.groupId"  #id readonly/>
+        </td>
+        <td>
+          <input type ="text"  [(ngModel)]="group.groupName"  readonly/>
+        </td>
+        <td>
+          <input type ="text"  [(ngModel)]="group.leadId"  readonly/>
+        </td>
+        <td>
+          <input type ="text"  [(ngModel)]="group.startDate" readonly/>
+        </td>
+        <td>
+          <input type ="text"  [(ngModel)]="group.endDate" readonly/>
+        </td>
+        <td>
+          <input type ="text"  [(ngModel)]="group.technology" readonly/>
+        </td>
+        <td>
+          <a (click)="deleteGroup(id.value)" class="btn">
+            <span class="glyphicon glyphicon-trash"></span>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
+<br>
+<br>
+<div class="text-center">
+  <button (click)="toggleCreateGroup($event)" id="btTogglec" type="button" class="btn btn-primary">Create Group</button>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button (click)="toggleUpdateGroup($event)" id="btToggleu" type="button" class="btn btn-primary">Update Group</button>
+</div>
+
+<div *ngIf="create_group">
+  <div class="col-md-10">
+    <form #groupform="ngForm" (ng-submit)="submit(groupform)" autocomplete="off">
+      <h2 class="text-center">
+        <b>Group Creation</b>
+      </h2>
+
+      <!-- For Group Name -->
+      <div class="form-group">
+        <label for="groupName">Group Name:
+          <span style="color: red;">*</span>
+        </label>
+        <input [(ngModel)]="group.groupName" placeholder="Enter Group Name" name="groupName" class="form-control" id="groupName"
+          required #groupName="ngModel">
+        <label class="text-danger" *ngIf="groupName.touched && (groupName.pristine || groupName.value=='')">
+          <b> Group Name Required </b>
+        </label>
+        <label class="text-danger" *ngIf="groupName.invalid && groupName.dirty && groupName.value!=''">
+          <b> Please Enter a Valid Name</b>
+        </label>
+      </div>
+
+      <!-- Select Lead  -->
+      <div class="form-group">
+        <label for="textinput">Select Lead:
+          <span style="color: red;">*</span>
+        </label>
+        <select aria-placeholder="select" class="form-control" name="userId" [(ngModel)]="leadList.UserId" #userId="ngModel" [ngClass]="{'invalid-data': userId.invalid && groupform.submitted, 'valid-data': userId.valid && groupform.submitted}"
+          required>
+          <option *ngFor="let lead of leadList" [ngValue]="lead"> {{lead.userId}} </option>
+        </select>
+        <div *ngIf="userId.invalid && groupform.submitted">
+          <span style="color: red;">Please Select Lead</span>
+        </div>
+      </div>
+
+
+      <!-- For Start Date  -->
+      <div class="form-group">
+        <label for="startDate">Start Date:
+          <span style="color: red;">*</span>
+        </label>
+        <input type='date' [(ngModel)]="group.startDate" placeholder="Enter Start Date" name="startDate" class="form-control" id="startDate"
+          required #startDate="ngModel">
+        <label class="text-danger" *ngIf="startDate.touched && (startDate.pristine || startDate.value=='')">
+          <b> Start Date Required</b>
+        </label>
+        <label class="text-danger" *ngIf="startDate.invalid && startDate.dirty && startDate.value!=''">
+          <b> Please Enter Start Date</b>
+        </label>
+      </div>
+
+      <!-- For End Date  -->
+      <div class="form-group">
+        <label for="endDate">End Date:
+          <span style="color: red;">*</span>
+        </label>
+        <input type='date' [(ngModel)]="group.endDate" placeholder="Enter End Date" name="endDate" class="form-control" id="endDate"
+          required #endDate="ngModel">
+        <label class="text-danger" *ngIf="endDate.touched && (endDate.pristine || endDate.value=='')">
+          <b> End Date Required</b>
+        </label>
+        <label class="text-danger" *ngIf="endDate.invalid && endDate.dirty && endDate.value!=''">
+          <b> Please Enter End Date</b>
+        </label>
+      </div>
+
+      <!-- For Technology -->
+      <div class="form-group">
+        <label for="technology">Technology:
+          <span style="color: red;">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="group.technology" name="technology" id="technology" #technology="ngModel" required>
+          <option value="Java">Java</option>
+          <option value=".Net">.Net</option>
+          <option value="DBA">DBA</option>
+          <option value="Testing">Testing</option>
+        </select>
+      </div>
+
+      <button class="btn btn-success" (click)="createGroup(groupName.value, userId.value, startDate.value,endDate.value, technology.value )"
+        [disabled]="!groupform.valid">Create</button>
+
+    </form>
+  </div>
+</div>
+
+<!-- ***************************************** -->
+
+<div *ngIf="update_group">
+  <div class="col-md-10">
+    <form #groupupdateform="ngForm" (ng-submit)="submit(groupupdateform)" autocomplete="off">
+      <h2 class="text-center">
+        <b>Update Group</b>
+      </h2>
+
+
+      <!--  Select Group -->
+      <div class="form-group">
+        <label for="textinput">Group:
+          <span style="color: red;">*</span>
+        </label>
+        <select aria-placeholder="select" class="form-control" name="groupName" [(ngModel)]="groupList.groupName" #groupName="ngModel"
+          [ngClass]="{'invalid-data': groupName.invalid && groupupdateform.submitted, 'valid-data': groupName.valid && groupupdateform.submitted}"
+          required>
+          <option *ngFor="let group of groupList" [ngValue]="group"> {{group.groupName}} </option>
+        </select>
+        <div *ngIf="groupName.invalid && groupupdateform.submitted">
+          <span style="color: red;">Please Select Group.</span>
+        </div>
+      </div>
+
+      <!--  Select Resource -->
+      <div class="form-group">
+        <label for="textinput">Resource:
+          <span style="color: red;">*</span>
+        </label>
+        <select aria-placeholder="select" class="form-control" name="userId" [(ngModel)]="groupUserList.userId" #userId="ngModel"
+          [ngClass]="{'invalid-data': userId.invalid && groupupdateform.submitted, 'valid-data': userId.valid && groupupdateform.submitted}"
+          required>
+          <option *ngFor="let Users of groupUserList" [ngValue]="Users"> {{Users.userId}} </option>
+        </select>
+        <div *ngIf="userId.invalid && groupupdateform.submitted">
+          <span style="color: red;">Please Select Resource.</span>
+        </div>
+      </div>
+
+      <button class="btn btn-info" (click)="updateGroup(groupName.value,userId.value)" [disabled]="!groupupdateform.valid" id="updateGroup">Update</button>&nbsp;&nbsp;
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Updation OF Group -->
+<!-- <div *ngIf="update_group">
+  <div class="col-md-10">
+    <form #groupupdateform="ngForm" (ng-submit)="submit(groupupdateform)" autocomplete="off">
+      <h2 class="text-center">
+        <b>Update Group</b>
+      </h2>
+      <div class="col-md-20">
+        <table id="table" class="css-serial">
+          <thead>
+            <tr>
+              <th>Sno</th>
+              <th>Name</th>
+              <th>Technology</th>
+              <th>Group
+                <span style="color: red;">*</span>
+              </th>
+              <th>Action </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let users of user; index as i">
+              <td></td>
+              <td>
+                <input [(ngModel)]="users.userId" [ngModelOptions]="{standalone: true}"  #id readonly/>
+              </td>
+              <td>{{users.technology}}</td>
+              <td>
+                <div class="form-group">
+                  <select aria-placeholder="select" class="form-control" name="groupName" [(ngModel)]="groupList.groupName" #groupName="ngModel"
+                    [ngModelOptions]="{standalone: true}" [ngClass]="{'invalid-data': groupName.invalid && groupupdateform.submitted, 'valid-data': groupName.valid && groupupdateform.submitted}"
+                    required>
+                    <option *ngFor="let group of groupList" [ngValue]="group"> {{group.groupName}} </option>
+                  </select>
+                </div>
+              </td>
+              <td>
+                <button class="btn btn-info" (click)="updateGroup(id.value,groupName.value)" [disabled]="!groupupdateform.valid"
+                  id="updateGroup">Update</button>&nbsp;&nbsp;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+</div> -->

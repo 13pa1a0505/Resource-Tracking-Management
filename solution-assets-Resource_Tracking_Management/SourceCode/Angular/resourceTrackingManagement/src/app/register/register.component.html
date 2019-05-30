@@ -1,0 +1,203 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+<div class="lnimg">
+  <header>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <ul class="nav navbar-nav">
+          <li>
+            <a [routerLink]="['/']" class="active">
+              <span class="glyphicon glyphicon-home"></span> Home </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a [routerLink]="['/login']" class="nav-link">
+              <span class="glyphicon glyphicon-log-in"></span> LogIn </a>
+          </li>
+          <li>
+            <a [routerLink]="['/register']" class="nav-link">
+              <span class="glyphicon glyphicon-user"></span> SignUp </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <div class="col-md-10">
+    <form #form="ngForm" (ng-submit)="submit(form)" autocomplete="off">
+      <h2 class="text-center">
+        <b>Registration Form</b>
+      </h2>
+
+      <!-- For First Name -->
+      <div class="form-group">
+        <label for="firstName">First Name:
+          <span style="color: red;">*</span>
+        </label>
+        <input [(ngModel)]="tempuser.firstName" placeholder="Enter First Name" name="firstName" class="form-control" id="firstName"
+          required #fn="ngModel">
+        <label class="text-danger" *ngIf="fn.touched && (fn.pristine || fn.value=='')">
+          <b> First Name Required </b>
+        </label>
+        <label class="text-danger" *ngIf="fn.invalid && fn.dirty && fn.value!=''">
+          <b> Please Enter a Valid Name</b>
+        </label>
+      </div>
+
+      <!-- For Middle Name -->
+      <div class="form-group">
+        <label for="middleName">Middle Name: </label>
+        <input [(ngModel)]="tempuser.middleName" placeholder="Enter Middle Name" name="middleName" class="form-control" id="middleName"
+          #fnsd="ngModel">
+      </div>
+
+      <!-- For Last Name -->
+
+      <div class="form-group">
+        <label for="lastName">Last Name:
+          <span style="color: red;">*</span>
+        </label>
+        <input [(ngModel)]="tempuser.lastName" placeholder="Enter Last Name" name="lastName" class="form-control" id="lastName" required
+          #fns="ngModel">
+        <label class="text-danger" *ngIf="fns.touched && (fns.pristine || fns.value=='')">
+          <b> Last Name Required </b>
+        </label>
+        <label class="text-danger" *ngIf="fns.invalid && fns.dirty && fns.value!=''">
+          <b> Please Enter a Valid Name</b>
+        </label>
+      </div>
+
+      <!-- For Emial Id -->
+      <div class="form-group">
+        <label for="email">Email Id:
+          <span style="color: red;">*</span>
+        </label>
+        <input [(ngModel)]="tempuser.email" placeholder="Enter email Id" name="email" class="form-control" id="email" required #fna="ngModel"
+          pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$">
+        <label class="text-danger" *ngIf="fna.touched && (fna.pristine || fna.value=='')">
+          <b> Email Id Required </b>
+        </label>
+        <label class="text-danger" *ngIf="fna.invalid && fna.dirty && fna.value!=''">
+          <b> Please Enter a Valid Email Id</b>
+        </label>
+      </div>
+
+      <!-- For User ID -->
+      <div class="form-group">
+        <label for="userId">User Id:
+          <span style="color: red;">*</span>
+        </label>
+        <input [(ngModel)]="tempuser.userId" placeholder="Enter User ID" name="userId" class="form-control" id="userId" required
+          #fnc="ngModel">
+        <label class="text-danger" *ngIf="fnc.touched && (fnc.pristine || fnc.value=='')">
+          <b> User Id Required </b>
+        </label>
+        <label class="text-danger" *ngIf="fnc.invalid && fnc.dirty && fnc.value!=''">
+          <b> Please Enter a User ID</b>
+        </label>
+      </div>
+
+      <!-- For Mobile Number -->
+      <div class="form-group">
+        <label for="mobileNumber">Mobile Number:
+          <span style="color: red;">*</span>
+        </label>
+        <input type="number" [(ngModel)]="tempuser.mobileNumber" placeholder="Enter Mobile Number" name="mobileNumber" class="form-control"
+          id="mobileNumber" required #fnb="ngModel" pattern="\d{10}">
+        <label class="text-danger" *ngIf="fnb.touched && (fnb.pristine || fnb.value=='')">
+          <b> Mobile Number Required </b>
+        </label>
+        <label class="text-danger" *ngIf="fnb.invalid && fnb.dirty && fnb.value!=''">
+          <b> Please Enter a Valid Mobile Number</b>
+        </label>
+      </div>
+
+
+      <!-- For Date of Birth  -->
+      <div class="form-group">
+        <label for="dateOfBirth">Date of Birth:
+          <span style="color: red;">*</span>
+        </label>
+        <input type='date' [(ngModel)]="tempuser.dateOfBirth" placeholder="Enter Mobile Number" name="dateOfBirth" class="form-control"
+          id="dateOfBirth" required #fnf="ngModel">
+        <label class="text-danger" *ngIf="fnf.touched && (fnf.pristine || fnf.value=='')">
+          <b> Date of Birth Required </b>
+        </label>
+        <label class="text-danger" *ngIf="fnf.invalid && fnf.dirty && fnf.value!=''">
+          <b> Please Enter Birth Required</b>
+        </label>
+      </div>
+
+      <!-- Select Gender  -->
+      <div class="form-group">
+        <label for="gender">Gender:
+          <span style="color: red;">*</span>
+        </label>
+        <select aria-placeholder="select" class="form-control" name="gender" [(ngModel)]="registrationList.gender" #gender="ngModel"
+          [ngClass]="{'invalid-data': gender.invalid && form.submitted, 'valid-data': gender.valid && form.submitted}" required>
+          <option *ngFor="let reg of registrationList" [ngValue]="reg.gender"> {{reg.gender}} </option>
+        </select>
+        <div *ngIf="gender.invalid && form.submitted">
+          <span style="color: red;">Please Select Gender.</span>
+        </div>
+      </div>
+
+      <!-- Select Security Question  -->
+      <div class="form-group">
+        <label for="securityQuestion">Security Question:
+          <span style="color: red;">*</span>
+        </label>
+        <select aria-placeholder="select" class="form-control" name="securityQuestion" [(ngModel)]="regList.securityQuestion"
+          #securityQuestion="ngModel" [ngClass]="{'invalid-data': securityQuestion.invalid && form.submitted, 'valid-data': securityQuestion.valid && form.submitted}"
+          required>
+          <option *ngFor="let reg of regList" [ngValue]="reg.securityQuestion"> {{reg.securityQuestion}} </option>
+        </select>
+        <div *ngIf="securityQuestion.invalid && form.submitted">
+          <span style="color: red;">Please Select Security Question.</span>
+        </div>
+      </div>
+
+
+      <!-- For Secret Answer -->
+      <div class="form-group">
+        <label for="secretAnswer">Secret Answer:
+          <span style="color: red;">*</span>
+        </label>
+        <input [(ngModel)]="tempuser.secretAnswer" placeholder="Enter Secret Answer" name="secretAnswer" class="form-control" id="secretAnswer"
+          required #fne="ngModel">
+        <label class="text-danger" *ngIf="fne.touched && (fne.pristine || fne.value=='')">
+          <b> Secret Answer Required</b>
+        </label>
+        <label class="text-danger" *ngIf="fne.invalid && fne.dirty && fne.value!=''">
+          <b> Please Enter a Secret Answer</b>
+        </label>
+      </div>
+
+
+
+      <!-- Select Technology -->
+      <div class="form-group">
+        <label for="technologyName">Technology:
+          <span style="color: red;">*</span>
+        </label>
+        <select aria-placeholder="select" class="form-control" name="technologyName" [(ngModel)]="regtechList.technologyName" #technologyName="ngModel"
+          [ngClass]="{'invalid-data': technologyName.invalid && form.submitted, 'valid-data': technologyName.valid && form.submitted}"
+          required>
+          <option *ngFor="let regtech of regtechList" [ngValue]="regtech.technologyName"> {{regtech.technologyName}} </option>
+        </select>
+        <div *ngIf="technologyName.invalid && form.submitted">
+          <span style="color: red;">Please Select Technology</span>
+        </div>
+      </div>
+
+
+
+      <!-- For Address -->
+      <div class="form-group">
+        <label for="address">Address : </label>
+        <input [(ngModel)]="tempuser.address" placeholder="Enter Address" name="address" class="form-control" id="address" #fnse="ngModel">
+      </div>
+      <button class="btn btn-success" (click)="createUser(gender.value, securityQuestion.value, technologyName.value)" [disabled]="!form.valid">Register</button>
+    </form>
+  </div>
+</div>

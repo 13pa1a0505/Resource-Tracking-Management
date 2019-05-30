@@ -1,0 +1,22 @@
+<app-lead-header></app-lead-header>
+<div class="col-md-20">
+    <table class="css-serial" id="customers">
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Technology Name</th>
+                <th>SubTechnology Name</th>
+                <th>Links</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tech of technology">
+                <td></td>
+                <td>{{tech.technologyName}}</td>
+                <td>{{tech.subTechnologyName}}</td>
+                <td>{{tech.links}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

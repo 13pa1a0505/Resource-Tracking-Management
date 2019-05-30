@@ -1,0 +1,72 @@
+<app-resource-header></app-resource-header>
+
+<br>
+<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn button">
+  <a class="nav-link" routerLink="/Leave">Leave</a>
+</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn button">
+  <a class="nav-link" routerLink="/CourseExtension">Couse Extension</a>
+</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn button">
+  <a class="nav-link" routerLink="/MaterialRequest">Material Request</a>
+</button>
+
+<form #leavereq="ngForm">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <br>
+      <h2 class="text-center">Requesting For Leave</h2>
+
+      <!--  Type of Leave  ADD NGMODEL BINDING-->
+      <div class="form-group">
+        <label for="leavetype">Type of Leave:
+          <span style="color: red;">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="request.leavetype" name="leavetype" id="leavetype" required>
+          <option value="SickLeave">Sick Leave</option>
+          <option value="EarnedLeave">Earned Leave</option>
+          <option value="bereavement">bereavement Leave</option>
+          <option value="Compoff">Compensatory Leave</option>
+        </select>
+      </div>
+
+
+      <!-- For Start Date  -->
+      <div class="form-group">
+        <label for="startDate">Start Date:
+          <span style="color: red;">*</span>
+        </label>
+        <input type='date' [(ngModel)]="request.leaveStartDate" placeholder="Enter Start Date" name="leaveStartDate" class="form-control"
+          id="leaveStartDate" required #fn3="ngModel">
+        <label class="text-danger" *ngIf="fn3.touched && (fn3.pristine || fn3.value=='')">
+          <b> Start Date Required</b>
+        </label>
+        <label class="text-danger" *ngIf="fn3.invalid && fn3.dirty && fn3.value!=''">
+          <b> Please Enter Start Date</b>
+        </label>
+      </div>
+
+      <!-- For End Date  -->
+      <div class="form-group">
+        <label for="endDate">End Date:
+          <span style="color: red;">*</span>
+        </label>
+        <input type='date' [(ngModel)]="request.leaveEndDate" placeholder="Enter End Date" name="leaveEndDate" class="form-control"
+          id="leaveEndDate" required #fn4="ngModel">
+        <label class="text-danger" *ngIf="fn4.touched && (fn4.pristine || fn4.value=='')">
+          <b> End Date Required</b>
+        </label>
+        <label class="text-danger" *ngIf="fn4.invalid && fn4.dirty && fn4.value!=''">
+          <b> Please Enter End Date</b>
+        </label>
+      </div>
+      <div>
+        Comments
+        <textarea type="text" id="form6" name="form6" class="md-textarea form-control" mdbInput [(ngModel)]="request.comments"></textarea>
+      </div>
+      <br>
+      <button class="btn btn-primary" (click)="createLeaveRequest()" [disabled]="!leavereq.valid">Submit</button>
+    </div>
+  </div>
+</form>

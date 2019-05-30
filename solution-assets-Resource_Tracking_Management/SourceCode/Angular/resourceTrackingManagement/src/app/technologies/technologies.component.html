@@ -1,0 +1,95 @@
+<app-header></app-header>
+<div class="col-md-10">
+  <form #linkform="ngForm" (ng-submit)="submit(linkform)" autocomplete="off">
+    <h2 class="text-center">
+      <b>Add / Update Technology</b>
+    </h2>
+
+    <!-- For Technology Link -->
+    <div class="form-group">
+      <label for="links">Add a Link:
+        <span style="color: red;">*</span>
+      </label>
+      <input [(ngModel)]="technology.links" placeholder="Enter Links" name="links" class="form-control" id="links" required #fn1="ngModel">
+      <label class="text-danger" *ngIf="fn1.touched && (fn1.pristine || fn1.value=='')">
+        <b> Links Required</b>
+      </label>
+      <label class="text-danger" *ngIf="fn1.invalid && fn1.dirty && fn1.value!=''">
+        <b> Please Enter a ValidLink</b>
+      </label>
+    </div>
+
+    <!-- For Technology Name-->
+    <div class="form-group">
+      <label for="technologyName">Technology:
+        <span style="color: red;">*</span>
+      </label>
+      <select class="form-control" [(ngModel)]="technology.technologyName" name="technologyName" id="technologyName" required>
+        <option value="Java">Java</option>
+        <option value=".Net">.Net</option>
+        <option value="DBA">DBA</option>
+        <option value="Testing">Testing</option>
+      </select>
+    </div>
+
+    <!-- For SubTechnology Link -->
+    <div class="form-group">
+      <label for="subTechnologyName">Add SubTechnology:
+        <span style="color: red;">*</span>
+      </label>
+      <input [(ngModel)]="technology.subTechnologyName" placeholder="Enter SubTechnology" name="subTechnologyName" class="form-control"
+        id="subTechnologyName" required #fn2="ngModel">
+      <label class="text-danger" *ngIf="fn2.touched && (fn2.pristine || fn2.value=='')">
+        <b>Sub Technology Required</b>
+      </label>
+      <label class="text-danger" *ngIf="fn2.invalid && fn2.dirty && fn2.value!=''">
+        <b> Please Enter SubTechnology</b>
+      </label>
+    </div>
+
+    <button class="btn btn-primary" (click)="addlink()" [disabled]="!linkform.valid">Save</button>
+  </form>
+</div>
+
+<br>
+
+<div class="col-md-10">
+  <h2 class="text-center">
+    <b>Technology Stack</b>
+  </h2>
+</div>
+<div class="col-md-20">
+  <table class=" css-serial" id="customers">
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Technology Id</th>
+        <th>Technology Name</th>
+        <th>SubTechnology Name</th>
+        <th>Links</th>
+        <th>Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tech of technologies">
+        <td></td>
+        <td>
+          <input type ="text"  [(ngModel)]="tech.technologyId"  #id readonly/>
+        </td>
+        <td>
+          <input type ="text"  [(ngModel)]="tech.technologyName"  readonly/>
+        </td>
+        <td>
+          <input type ="text"  [(ngModel)]="tech.subTechnologyName" readonly/>
+        </td>
+        <td>
+          <input type ="text"  [(ngModel)]="tech.links" readonly/>
+        </td>
+        <td>
+          <button class="btn btn-danger"  (click)="deleteLink(id.value)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

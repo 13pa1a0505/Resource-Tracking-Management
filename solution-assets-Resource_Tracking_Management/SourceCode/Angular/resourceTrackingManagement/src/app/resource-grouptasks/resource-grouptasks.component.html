@@ -1,0 +1,58 @@
+<app-resource-header>
+</app-resource-header>
+
+<div class="sidebar">
+    <a routerLink="/ResourceTaskStatus">Individual Tasks</a>
+    <a routerLink="/groupTasks" class="active">Group Tasks</a>
+</div>
+
+
+<!-- Group Tasks -->
+<div class="content">
+    <div class="col-md-20">
+        <table id="customers" class="css-serial">
+            <thead>
+                <tr>
+                    <th>Sno</th>
+                    <th>Task Id</th>
+                    <th>Task Name</th>
+                    <th>Technology</th>
+                    <th>Status </th>
+                    <th> Update Status
+                        <span style="color: red;">*</span>
+                    </th>
+                    <th>Action </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let groupTask of grouptaskList; index as i">
+                    <td></td>
+                    <td>
+                        <input [(ngModel)]="groupTask.taskId"  #id readonly/>
+                    </td>
+                    <td>{{groupTask.taskName}}</td>
+                    <td>{{groupTask.technology}}</td>
+                    <td>{{groupTask.progress}}</td>
+                    <td>
+                        <div class="form-group">
+                            <form #grouptask="ngForm" (ng-submit)="submit(grouptask)" autocomplete="off">
+                                <select class="form-control" name="groupprogress" id="groupprogress" #groupprogress required>
+                                    <option value="Started">Started</option>
+                                    <option value="Inprogress">Inprogress</option>
+                                    <option value="Completed">Completed</option>
+                                    <option value="Analysis">Analysis</option>
+                                    <option value="Design">Design</option>
+                                    <option value="Implementation">Implementation</option>
+                                    <option value="Testing">Testing</option>
+                                </select>
+                            </form>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-info" (click)="statusUpdate(id.value,groupprogress.value)" [disabled]="!grouptask.valid"
+                            id="statusUpdate">Update</button>&nbsp;&nbsp;</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

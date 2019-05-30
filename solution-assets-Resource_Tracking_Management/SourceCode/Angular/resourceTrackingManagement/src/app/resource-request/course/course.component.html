@@ -1,0 +1,58 @@
+<app-resource-header></app-resource-header>
+<br>
+<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn button">
+  <a class="nav-link" routerLink="/Leave">Leave</a>
+</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn button">
+  <a class="nav-link" routerLink="/CourseExtension">Couse Extension</a>
+</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn button">
+  <a class="nav-link" routerLink="/MaterialRequest">Material Request</a>
+</button>
+
+
+<form #coursereq="ngForm">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <br>
+      <h2 class="text-center">Requesting For Task Extension</h2>
+
+
+      <label for="textinput">Select Task:
+        <span style="color: red;">*</span>
+      </label>
+      <select aria-placeholder="select" class="form-control" name="taskName" [(ngModel)]="tasknameList.taskName" #taskName="ngModel"
+        [ngClass]="{'invalid-data': taskName.invalid && coursereq.submitted, 'valid-data': taskName.valid && coursereq.submitted}"
+        required>
+        <option *ngFor="let tname of tasknameList" [ngValue]="tname"> {{tname.taskName}} </option>
+      </select>
+      <div *ngIf="taskName.invalid && coursereq.submitted">
+        <span style="color: red;">Please Select Resource.</span>
+      </div>
+      <br>
+
+      <!-- For End Date  -->
+      <div class="form-group">
+        <label for="endDate">Extension Date:
+          <span style="color: red;">*</span>
+        </label>
+        <input type='date' [(ngModel)]="request.extenstionDate" placeholder="Enter End Date" name="extenstionDate" class="form-control"
+          id="extenstionDate" required #fn4="ngModel">
+        <label class="text-danger" *ngIf="fn4.touched && (fn4.pristine || fn4.value=='')">
+          <b> End Date Required</b>
+        </label>
+        <label class="text-danger" *ngIf="fn4.invalid && fn4.dirty && fn4.value!=''">
+          <b> Please Enter End Date</b>
+        </label>
+      </div>
+      <br>
+      <div>
+        Reason
+        <textarea type="text" id="form5" name="form5" class="md-textarea form-control" mdbInput [(ngModel)]="request.comments"></textarea>
+      </div>
+      <br>
+      <button class="btn btn-primary" (click)="createCourseRequest()" [disabled]="!coursereq.valid">Submit</button>
+    </div>
+  </div>
+</form>

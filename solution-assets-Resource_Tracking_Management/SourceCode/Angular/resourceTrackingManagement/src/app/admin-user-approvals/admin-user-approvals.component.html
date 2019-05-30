@@ -1,0 +1,65 @@
+<app-header></app-header>
+<div class="col-md-20">
+    <table class="css-serial" id="customers">
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>User Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>Technology</th>
+                <th>Submitted By</th>
+                <th>Submitted On</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tempuser of TempUsers">
+                <td></td>
+                <td>
+                    <input [(ngModel)]=tempuser.userId #userId readonly/>
+                </td>
+                <td>{{tempuser.firstName}}{{tempuser.lastName}}</td>
+                <td>{{tempuser.email}}</td>
+                <td>{{tempuser.mobileNumber}}</td>
+                <td>{{tempuser.technology}}</td>
+                <td>{{tempuser.createdBy}}</td>
+                <td>{{tempuser.createdOn}}</td>
+                <td>
+                    <button class="btn btn-success" (click)="toggledropdown(userId.value)" id="btToggle">Approve</button>&nbsp;&nbsp;
+                    <button class="btn btn-danger" (click)="rejectUser(tempuser)" name="Reject" value="Reject">Reject </button>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="container">
+    <form #taskForm="ngForm" (ng-submit)="submit(taskForm)" autocomplete="off">
+        <div *ngIf="show_dropdown">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="textinput">Select Role:
+                    <span style="color: red;">*</span>
+                </label>
+
+
+                <select aria-placeholder="select" class="form-control" name="roleName" [(ngModel)]="roleList.roleName" #roleName="ngModel"
+                    [ngClass]="{'invalid-data': roleName.invalid && taskForm.submitted, 'valid-data': roleName.valid && taskForm.submitted}"
+                    required>
+                    <option *ngFor="let role of roleList" [ngValue]="role"> {{role.roleName}} </option>
+                </select>
+                <div *ngIf="roleName.invalid && taskForm.submitted">
+                    <span style="color: red;">Please Select Role.</span>
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div>
+                    <button type="submit" class="btn btn-success" (click)="approveUser(roleName.value)" name="Approve" value="Approve"> Save
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>

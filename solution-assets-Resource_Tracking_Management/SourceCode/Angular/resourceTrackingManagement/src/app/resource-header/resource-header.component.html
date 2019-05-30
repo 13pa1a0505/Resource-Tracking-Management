@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<header>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/Request">Request</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/ResourceTaskStatus">Task Status</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/ResourceTech">Technology</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a [routerLink]="['/profile']">
+                        <span class="glyphicon glyphicon-user"></span> {{uname}}</a>
+                </li>
+                <li>
+                    <a (click)="logoutFunc()">
+                        <span class="glyphicon glyphicon-off"></span> LogOut</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<router-outlet></router-outlet>

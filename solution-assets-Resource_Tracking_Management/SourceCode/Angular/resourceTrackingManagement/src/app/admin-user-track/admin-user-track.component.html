@@ -1,0 +1,31 @@
+<app-header></app-header>
+<div class="col-md-20">
+    <table id="customers" class="css-serial">
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>User Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>Technology</th>
+                <th>Submitted By</th>
+                <th>Submitted On</th>
+                <th>Updated On</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tempuser of TempUsers">
+                <td></td>
+                <td>{{tempuser.userId}}</td>
+                <td>{{tempuser.firstName}}{{tempuser.lastName}}</td>
+                <td>{{tempuser.email}}</td>
+                <td>{{tempuser.mobileNumber}}</td>
+                <td>{{tempuser.technology}}</td>
+                <td>{{tempuser.createdBy}}</td>
+                <td>{{tempuser.createdOn}}</td>
+                <td>{{tempuser.updatedOn}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

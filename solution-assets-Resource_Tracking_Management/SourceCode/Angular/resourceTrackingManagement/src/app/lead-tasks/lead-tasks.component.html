@@ -1,0 +1,166 @@
+<app-lead-header></app-lead-header>
+<div>
+  <button (click)="toggleAssignGroup($event)" id="btToggle" type="button" class="btn btn-primary">Assign task to Group</button>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <button (click)="toggleAssignIndi($event)" id="btTogglei" type="button" class="btn btn-primary">Assign task to individual</button>
+</div>
+<br>
+
+<div *ngIf="assign_group">
+  <h2 class="text-center">
+    <b>Group Task</b>
+  </h2>
+  <form #grouptask="ngForm" autocomplete="off">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+
+        <!-- Select Group  -->
+        <div class="form-group">
+          <label for="textinput">Group:
+            <span style="color: red;">*</span>
+          </label>
+          <select aria-placeholder="select" class="form-control" name="groupName" [(ngModel)]="groupList.groupName" #groupName="ngModel"
+            [ngClass]="{'invalid-data': groupName.invalid && grouptask.submitted, 'valid-data': groupName.valid && grouptask.submitted}"
+            required>
+            <option *ngFor="let group of groupList" [ngValue]="group"> {{group.groupName}} </option>
+          </select>
+          <div *ngIf="groupName.invalid && grouptask.submitted">
+            <span style="color: red;">Please Select Group.</span>
+          </div>
+        </div>
+
+        <!--  Technology  -->
+        <div class="form-group">
+          <label for="technology">Technology:
+            <span style="color: red;">*</span>
+          </label>
+          <select class="form-control" [(ngModel)]="tasklist.technology" name="technology" id="technology" #technology="ngModel" required>
+            <option value="Java">Java</option>
+            <option value=".Net">.Net</option>
+            <option value="DBA">DBA</option>
+            <option value="Testing">Testing</option>
+          </select>
+        </div>
+
+        <!-- For Start Date  -->
+        <div class="form-group">
+          <label for="startDate">Start Date:
+            <span style="color: red;">*</span>
+          </label>
+          <input type='date' [(ngModel)]="tasklist.startDate" placeholder="Enter Start Date" name="startDate" class="form-control"
+            id="startDate" required #startDate="ngModel">
+          <label class="text-danger" *ngIf="startDate.touched && (startDate.pristine || startDate.value=='')">
+            <b> Start Date Required</b>
+          </label>
+          <label class="text-danger" *ngIf="startDate.invalid && startDate.dirty && startDate.value!=''">
+            <b> Please Enter Start Date</b>
+          </label>
+        </div>
+
+        <!-- For End Date  -->
+        <div class="form-group">
+          <label for="endDate">End Date:
+            <span style="color: red;">*</span>
+          </label>
+          <input type='date' [(ngModel)]="tasklist.endDate" placeholder="Enter End Date" name="endDate" class="form-control" id="endDate"
+            required #endDate="ngModel">
+          <label class="text-danger" *ngIf="endDate.touched && (endDate.pristine || endDate.value=='')">
+            <b> End Date Required</b>
+          </label>
+          <label class="text-danger" *ngIf="endDate.invalid && endDate.dirty && endDate.value!=''">
+            <b> Please Enter End Date</b>
+          </label>
+        </div>
+        <div>
+          <!-- For task Name  -->
+          <label for="taskName">Task Name:
+            <span style="color: red;">*</span>
+          </label>
+          <textarea type="text" id="form7" name="form7" class="md-textarea form-control" mdbInput [(ngModel)]="tasklist.taskName" #taskName="ngModel"></textarea>
+        </div>
+        <br>
+        <button class="btn btn-primary" (click)="createTask()" [disabled]="!grouptask.valid">Assign</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- To assign Individiual Tasks -->
+<div *ngIf="assign_individual">
+  <form #individualtask="ngForm">
+    <div class="row">
+      <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2 col-md-offset-2">
+        <h2 class="text-center">
+          <b>Individual Task</b>
+        </h2>
+
+        <!-- Select Resource  -->
+        <div class="form-group">
+          <label for="textinput">Resource:
+            <span style="color: red;">*</span>
+          </label>
+          <select aria-placeholder="select" class="form-control" name="userId" [(ngModel)]="namesList.userId" #userId="ngModel" [ngClass]="{'invalid-data': userId.invalid && individualtask.submitted, 'valid-data': userId.valid && individualtask.submitted}"
+            required>
+            <option *ngFor="let name of namesList" [ngValue]="name"> {{name.userId}}---({{name.groupName}}) </option>
+          </select>
+          <div *ngIf="userId.invalid && individualtask.submitted">
+            <span style="color: red;">Please Select Resource.</span>
+          </div>
+        </div>
+
+        <!--  Technology  -->
+        <div class="form-group">
+          <label for="technology">Technology:
+            <span style="color: red;">*</span>
+          </label>
+          <select class="form-control" [(ngModel)]="tasklist.technology" name="technology" id="technology" required>
+            <option value="Java">Java</option>
+            <option value=".Net">.Net</option>
+            <option value="DBA">DBA</option>
+            <option value="Testing">Testing</option>
+          </select>
+        </div>
+
+        <!-- For Start Date  -->
+        <div class="form-group">
+          <label for="startDate">Start Date:
+            <span style="color: red;">*</span>
+          </label>
+          <input type='date' [(ngModel)]="tasklist.startDate" placeholder="Enter Start Date" name="startDate" class="form-control"
+            id="startDate" required #fn3="ngModel">
+          <label class="text-danger" *ngIf="fn3.touched && (fn3.pristine || fn3.value=='')">
+            <b> Start Date Required</b>
+          </label>
+          <label class="text-danger" *ngIf="fn3.invalid && fn3.dirty && fn3.value!=''">
+            <b> Please Enter Start Date</b>
+          </label>
+        </div>
+
+        <!-- For End Date  -->
+        <div class="form-group">
+          <label for="endDate">End Date:
+            <span style="color: red;">*</span>
+          </label>
+          <input type='date' [(ngModel)]="tasklist.endDate" placeholder="Enter End Date" name="endDate" class="form-control" id="endDate"
+            required #fn4="ngModel">
+          <label class="text-danger" *ngIf="fn4.touched && (fn4.pristine || fn4.value=='')">
+            <b> End Date Required</b>
+          </label>
+          <label class="text-danger" *ngIf="fn4.invalid && fn4.dirty && fn4.value!=''">
+            <b> Please Enter End Date</b>
+          </label>
+        </div>
+        <div>
+
+          <!-- For task Name  -->
+          <label for="taskName">Task Name:
+            <span style="color: red;">*</span>
+          </label>
+          <textarea type="text" id="form6" name="form6" class="md-textarea form-control" mdbInput [(ngModel)]="tasklist.taskName"></textarea>
+        </div>
+        <br>
+        <button class="btn btn-primary" (click)="createIndividualTask( userId.value )" [disabled]="!individualtask.valid">Assign</button>
+      </div>
+    </div>
+  </form>
+</div>

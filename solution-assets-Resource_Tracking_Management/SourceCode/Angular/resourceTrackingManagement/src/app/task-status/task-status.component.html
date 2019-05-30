@@ -1,0 +1,23 @@
+<app-lead-header></app-lead-header>
+<div class="col-md-20">
+    <table class="css-serial" id="customers">
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>User Id/Group Name</th>
+                <th>Task Name</th>
+                <th>Technology</th>
+                <th>Task Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tasklist of tasklist">
+                <td></td>
+                <td>{{tasklist.userId}}({{tasklist.groupName}})</td>
+                <td>{{tasklist.taskName}}</td>
+                <td>{{tasklist.technology}}</td>
+                <td>{{tasklist.progress}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

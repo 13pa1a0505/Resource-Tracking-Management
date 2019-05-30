@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<app-lead-header></app-lead-header>
+
+<h2 style="text-align:center" class="h">
+    <b>Profile Card</b>
+</h2>
+
+<div class="card">
+    <div *ngFor="let users of user">
+        <br>
+        <h1 class="a">{{ users.firstName}} {{users.middleName}} {{users.lastName}}</h1>
+        <h3 class="title">{{users.role}}</h3>
+        <h4>
+            <span class="glyphicon glyphicon-envelope"></span> {{users.email}}</h4>
+        <h4>Lead Name : {{users.leadName}}</h4>
+        <h5>
+            <span class="glyphicon glyphicon-phone"></span> : {{users.mobileNUmber}}</h5>
+        <h5>
+            <span class="glyphicon glyphicon-gift"></span> {{users.dateOfBirth}}</h5>
+        <br>
+    </div>
+</div>

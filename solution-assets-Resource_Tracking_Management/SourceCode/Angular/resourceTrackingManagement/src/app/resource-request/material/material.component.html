@@ -1,0 +1,43 @@
+<app-resource-header></app-resource-header>
+
+<br>
+<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn button">
+  <a class="nav-link" routerLink="/Leave">Leave</a>
+</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn button">
+  <a class="nav-link" routerLink="/CourseExtension">Couse Extension</a>
+</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="button" class="btn button">
+  <a class="nav-link" routerLink="/MaterialRequest">Material Request</a>
+</button>
+
+
+<form #materialreq="ngForm">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <br>
+      <h2 class="text-center">Requesting For Materials</h2>
+
+      <!--  Technology  -->
+      <div class="form-group">
+        <label for="technology">Technology:
+          <span style="color: red;">*</span>
+        </label>
+        <select class="form-control" [(ngModel)]="request.technology" name="technology" id="technology" required>
+          <option value="Java">Java</option>
+          <option value=".Net">.Net</option>
+          <option value="DBA">DBA</option>
+          <option value="Testing">Testing</option>
+        </select>
+      </div>
+
+      <div>
+        Additional Information
+        <textarea type="text" id="form6" name="form6" class="md-textarea form-control" mdbInput [(ngModel)]="request.comments"></textarea>
+      </div>
+      <br>
+      <button class="btn btn-primary" (click)="MaterialRequest()" [disabled]="!materialreq.valid">Request</button>
+    </div>
+  </div>
+</form>

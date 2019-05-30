@@ -1,0 +1,37 @@
+<app-lead-header></app-lead-header>
+<div class="col-md-20">
+    <table class="css-serial" id="customers">
+        <thead>
+            <tr>
+                <th>Sno</th>
+                <th>Resource Name</th>
+                <th>Request Type</th>
+                <th>Technology</th>
+                <th>taskName</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Comments</th>
+                <th>Course Extension Date</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let request of Requests">
+                <td></td>
+                <td>{{request.userName}}</td>
+                <td>{{request.typeOfRequest}}</td>
+                <td>{{request.technology}}</td>
+                <td>{{request.taskName}}</td>
+                <td>{{request.leaveStartDate}}</td>
+                <td>{{request.leaveEndDate}}</td>
+                <td>{{request.comments}}</td>
+                <td>{{request.extenstionDate}}</td>
+                <td>
+                    <button class="btn btn-success" (click)="approveRequest(request)" name="Accept" value="Accept">Approve</button>&nbsp;&nbsp;
+                    <button class="btn btn-danger" (click)="rejectRequest(request)" name="Reject" value="Reject">Reject </button>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
